@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+{% block title %}
+    Add A New Post | Synapse
+{% endblock title %}
+{% block page_content %}
+    <style>
+        input[type="text"],
+        textarea,
+        input[type="file"],
+        select {
+            width: 100%;
+            padding: 0.375rem 0.75rem;
+            border: 1px solid #dee2e6;
+            border-radius: 0.25rem;
+            font-size: 1rem;
+        }
+    </style>
+    {% comment %} {% if post %} {% endcomment %}
+        {% comment %} <h1>Edit {{ post.title }}</h1> {% endcomment %}
+    {% comment %} {% else %} {% endcomment %}
+        <h1>Add A New Post</h1>
+    {% comment %} {% endif %} {% endcomment %}
+    {% comment %} Action set to empty string to submit to the same URL {% endcomment %}
+    <form action="" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {% if form.errors %}
+            <div class="alert alert-danger">
+                <strong>Please correct the following errors:</strong>
+                {{ form.errors }}
+            </div>
+        {% endif %}
+        <div class="mb-3">
+            {{ form.title.label_tag }}
+            {{ form.title }}
+            {% if form.title.errors %}
+                <div class="text-danger">{{ form.title.errors }}</div>
+            {% endif %}
+        </div>
+        <div class="mb-3">
+            {{ form.description.label_tag }}
+            {{ form.description }}
+            {% if form.description.errors %}
+                <div class="text-danger">{{ form.description.errors }}</div>
+            {% endif %}
+        </div>
+        <div class="mb-3">
+            {{ form.program_type.label_tag }}
+            {{ form.program_type }}
+            {% if form.program_type.errors %}
+                <div class="text-danger">{{ form.program_type.errors }}</div>
+            {% endif %}
+        </div>
+        <div class="mb-3">
+            {{ form.grad_year.label_tag }}
+            {{ form.grad_year }}
+            {% if form.grad_year.errors %}
+                <div class="text-danger">{{ form.grad_year.errors }}</div>
+            {% endif %}
+        </div>
+        <div class="mb-3">
+            {{ form.linkedin_url.label_tag }}
+            {{ form.linkedin_url }}
+            {% if form.linkedin_url.errors %}
+                <div class="text-danger">{{ form.linkedin_url.errors }}</div>
+            {% endif %}
+        </div>
+        <button type="submit" class="btn btn-primary">Create Post</button>
+        <a href="{% url 'home' %}" class="btn btn-secondary">Cancel</a>
+        {% comment %} <a href="{% url 'post_list' %}" class="btn btn-secondary">Cancel</a> {% endcomment %}
+    </form>
+{% endblock page_content %}

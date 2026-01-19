@@ -3,4 +3,5 @@ from main_app import views
 
 urlpatterns = [
     path('', views.Home.as_view(), name='home'),
+    path('create/', views.PostCreate.as_view(), name='post_create'),
 ]
