@@ -34,6 +34,12 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="{% url 'post_create' %}">Add A Post</a>
                             </li>
+                            <li>
+                                <form id="logout-form" method="post" action="{% url 'logout' %}">
+                                    {% csrf_token %}
+                                    <button type="submit">Logout</button>
+                                </form>
+                            </li>
                             {% else %} 
                             <li class="nav-item">
                                 <a class="nav-link active" aria-current="page" href="{% url 'home' %}">Home</a>
@@ -49,6 +55,7 @@
             {% block page_content %}
             {% endblock page_content %}
         </main>
+        {% if not user.is_authenticated %}
         <section>
             <form action="{% url 'home' %}" method="post" class="login">
                 <h1>Login</h1>
@@ -57,5 +64,6 @@
                 <button type="submit" class="btn submit">Login</button>
             </form>
         </section>
+        {% endif %}
     </body>
 </html>
