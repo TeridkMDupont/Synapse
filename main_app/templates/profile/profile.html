@@ -11,6 +11,8 @@
         </div>
         <h2>{{ request.user.get_full_name|default:request.user.username }}</h2>
         
+        <a href="{% url 'profile_update' %}" class="btn btn-secondary btn-sm" style="margin-bottom: var(--space-sm);">Edit Profile</a>
+
         {% if profile.program_type %}
           <p class="text-secondary">{{ profile.program_type }}</p>
         {% endif %}

@@ -6,7 +6,7 @@ from django.views.generic import CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
-# from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 from django.contrib.auth.decorators import login_required
 
@@ -58,6 +58,15 @@ def profile_view(request):
         'total_likes': total_likes,
     }
     return render(request, 'profile/profile.html', context)
+
+class ProfileUpdate(LoginRequiredMixin, UpdateView):
+    model = Profile
+    fields = ['about', 'program_type', 'grad_year', 'linkedin_url', 'portfolio_url']
+    template_name = 'profile/profile_form.html'
+    success_url = reverse_lazy('profile')
+
+    def get_object(self):
+        return Profile.objects.get_or_create(user=self.request.user)[0]
 
 class SignUp(CreateView):
     form_class = UserCreationForm

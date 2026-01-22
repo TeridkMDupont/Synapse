@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% block title %}Edit Profile | Synapse{% endblock title %}
+{% block page_content %}
+<div class="container container-md">
+  <div class="form-container">
+    <h1 class="text-center">Edit Profile</h1>
+    <form method="post" class="form">
+      {% csrf_token %}
+      
+      <fieldset>
+        <legend>About You</legend>
+        <div class="form-group">
+          <label for="{{ form.about.id_for_label }}">Bio</label>
+          {{ form.about }}
+          {% if form.about.errors %}
+            <div class="form-error">{{ form.about.errors }}</div>
+          {% endif %}
+          <p class="form-help">Tell us a little about yourself.</p>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Education</legend>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="{{ form.program_type.id_for_label }}">Program</label>
+            {{ form.program_type }}
+          </div>
+          <div class="form-group">
+            <label for="{{ form.grad_year.id_for_label }}">Graduation Year</label>
+            {{ form.grad_year }}
+          </div>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Links</legend>
+        <div class="form-group">
+          <label for="{{ form.linkedin_url.id_for_label }}">LinkedIn URL</label>
+          {{ form.linkedin_url }}
+        </div>
+        <div class="form-group">
+          <label for="{{ form.portfolio_url.id_for_label }}">Portfolio URL</label>
+          {{ form.portfolio_url }}
+        </div>
+      </fieldset>
+
+      <div class="form-actions form-actions-end">
+        <a href="{% url 'profile' %}" class="btn btn-ghost">Cancel</a>
+        <button type="submit" class="btn btn-primary">Save Changes</button>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}
